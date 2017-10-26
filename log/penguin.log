@@ -1,1 +1,0 @@
-2017-10-26/15:05:41 [DBG] github.com/penguinn/album/vendor/github.com/penguinn/penguin/component/log.Debugf:91 start: 2017-10-26 15:05:41.046497868 +0800 CST m=+22.696412998	end: 2017-10-26 15:05:41.04649794 +0800 CST m=+22.696413070	 latency: 72ns  statusCode: 404  clientIP: 127.0.0.1  method: GET  path: /api/check/image-auth
