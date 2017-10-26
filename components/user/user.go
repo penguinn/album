@@ -1,14 +1,13 @@
 package user
 
 import (
-	"sync"
 	"bytes"
-	"github.com/penguinn/penguin/component/session"
-	"strconv"
-	"github.com/penguinn/penguin/component/log"
-	"time"
 	"github.com/gin-gonic/gin"
 	"github.com/penguinn/album/models"
+	"github.com/penguinn/penguin/component/log"
+	"github.com/penguinn/penguin/component/session"
+	"sync"
+	"time"
 )
 
 const (
@@ -56,12 +55,12 @@ func (this *User) Login(id int, name string) error {
 	sess, _ := session.SessionFromGin(this.ctx)
 	sess.Set(generateKey("userID"), id)
 	sess.Set(generateKey("userName"), name)
-	sess.Set("user", id)
+	sess.Set("userID", id)
 
-	session.BatchUpdateByUser(id, sess.Token(), map[string]interface{}{ "userID": id, generateKey("__kicked__"): true})
+	session.BatchUpdateByUser(id, sess.Token(), map[string]interface{}{"userID": id, generateKey("__kicked__"): true})
 
-	updateMap := map[string]interface{} {
-		"access_time" : time.Now().Unix(),
+	updateMap := map[string]interface{}{
+		"access_time": time.Now().Unix(),
 	}
 	err := models.User{}.Update(id, updateMap)
 	if err != nil {
@@ -72,7 +71,7 @@ func (this *User) Login(id int, name string) error {
 }
 
 func (this *User) IsGuest() bool {
-	return this.GetID() == ""
+	return this.GetID() == 0
 }
 
 func (this *User) IsKicked() bool {
@@ -83,12 +82,12 @@ func (this *User) IsKicked() bool {
 	return false
 }
 
-func (this *User) GetID() string {
+func (this *User) GetID() int {
 	sess, ok := session.SessionFromGin(this.ctx)
 	if ok {
-		return sess.GetString(generateKey("userID"))
+		return sess.GetInt(generateKey("userID"))
 	}
-	return ""
+	return 0
 }
 
 func (this *User) GetName() string {

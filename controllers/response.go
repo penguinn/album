@@ -10,10 +10,13 @@ const (
 	PARAM_ERROR_CODE  = 1000
 	SERVER_ERROR_CODE = 1001
 
-	AUTH_FAILED_CODE = 2001
-	NOT_AUTH_CODE    = 2002
-	USERNAME_EXIST_CODE = 2003
-	KICKED_CODE      = 2004
+	AUTH_FAILED_CODE        = 2001
+	NOT_AUTH_CODE           = 2002
+	USERNAME_EXIST_CODE     = 2003
+	USERNAME_NOT_EXIST_CODE = 2004
+	KICKED_CODE             = 2005
+
+	IMAGE_AUTH_CODE = 3001
 )
 
 type Response struct {
@@ -24,13 +27,14 @@ type Response struct {
 
 var (
 	CodeMap = map[int]string{
-		SUCCESS_CODE:      "success",
-		PARAM_ERROR_CODE:  "参数错误",
-		SERVER_ERROR_CODE: "系统繁忙，请稍后再试",
-		AUTH_FAILED_CODE:  "登录失败",
-		NOT_AUTH_CODE:        "没有登录",
-		USERNAME_EXIST_CODE: "用户名已经存在",
-		KICKED_CODE:            "账户在另一个地方登录",
+		SUCCESS_CODE:            "success",
+		PARAM_ERROR_CODE:        "参数错误",
+		SERVER_ERROR_CODE:       "系统繁忙，请稍后再试",
+		AUTH_FAILED_CODE:        "登录失败",
+		NOT_AUTH_CODE:           "没有登录",
+		USERNAME_EXIST_CODE:     "用户名已经存在",
+		USERNAME_NOT_EXIST_CODE: "用户名不存在",
+		KICKED_CODE:             "账户在另一个地方登录",
 	}
 )
 

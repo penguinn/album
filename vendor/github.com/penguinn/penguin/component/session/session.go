@@ -82,8 +82,8 @@ type Store interface {
 	Del(string) error
 	Each(func(StoreData))
 	CleanUp()
-	Users(string) ([]StoreData, error)
-	BatchUpdateByUser(string, string, string) error
+	Users(int) ([]StoreData, error)
+	BatchUpdateByUser(int, string, string) error
 }
 
 type dbStore struct {
@@ -128,26 +128,26 @@ func (d *dbStore) CleanUp() {
 	d.DBGetter().Where("expire_at < ?", time.Now().Unix()).Delete(&StoreData{})
 }
 
-func (d *dbStore) Users(user string) ([]StoreData, error) {
+func (d *dbStore) Users(userID int) ([]StoreData, error) {
 	r := []StoreData{}
-	if err := d.DBGetter().Where("`user` = ?", user).Find(&r).Error; err != nil {
+	if err := d.DBGetter().Where("user_id = ?", userID).Find(&r).Error; err != nil {
 		return nil, err
 	}
 	return r, nil
 
 }
 
-func (d *dbStore) BatchUpdateByUser(user string, not string, data string) error {
-	return d.DBGetter().Model(&StoreData{}).Where("`user` = ? AND token != ?", user, not).Update("data", data).Error
+func (d *dbStore) BatchUpdateByUser(userID int, not string, data string) error {
+	return d.DBGetter().Model(&StoreData{}).Where("user_id = ? AND token != ?", userID, not).Update("data", data).Error
 }
 
 type StoreData struct {
 	Token      string `gorm:"column:token;type:varchar(36);primary_key;not null;default:''"`
-	Data       string `gorm:"column:data;type:text;not null;default:''"`
-	User       string `gorm:"column:user;type:varchar(36);not null;default:''"`
-	CreateTime int    `gorm:"column:create_time;type:int(10) unsigned;not null;default:0"`
-	UpdateTime int    `gorm:"column:update_time;type:int(10) unsigned;not null;default:0"`
-	ExpireAt   int    `gorm:"column:expire_at;type:int(10) unsigned;not null;default:0"`
+	Data       string `gorm:"column:data;type:text;not null"`
+	UserID     int    `gorm:"column:user_id;type:int(10);unsigned;not null;default:0"`
+	CreateTime int64  `gorm:"column:create_time;type:int(10);unsigned;not null;default:0"`
+	UpdateTime int64  `gorm:"column:update_time;type:int(10);unsigned;not null;default:0"`
+	ExpireAt   int64  `gorm:"column:expire_at;type:int(10);unsigned;not null;default:0"`
 }
 
 func (StoreData) TableName() string {
@@ -158,7 +158,7 @@ func (StoreData) TableName() string {
 type options struct {
 	Path     string
 	Domain   string
-	MaxAge   int
+	MaxAge   int64
 	Secure   bool
 	HttpOnly bool
 }
@@ -191,7 +191,7 @@ func DomainOption(domain string) Option {
 	}}
 }
 
-func MaxAgeOption(maxAge int) Option {
+func MaxAgeOption(maxAge int64) Option {
 	return Option{func(o *options) {
 		o.MaxAge = maxAge
 	}}
@@ -202,7 +202,7 @@ type session struct {
 	values   map[string]interface{}
 	options  *options
 	modified bool
-	created  int
+	created  int64
 	//optionModified bool
 	isNew    bool
 	knockout bool
@@ -221,7 +221,7 @@ func (s *session) Token() string {
 
 func (s *session) Knockout() {
 	s.modified = true
-	s.knockout = true
+	s.Clean()
 }
 
 func (s *session) Get(k string) (interface{}, bool) {
@@ -255,7 +255,6 @@ func (s *session) GetInt(k string) (r int) {
 	v, _ := s.values[k]
 	r, _ = v.(int)
 	return
-
 }
 
 func (s *session) GetBool(k string) (r bool) {
@@ -263,7 +262,6 @@ func (s *session) GetBool(k string) (r bool) {
 
 	r, _ = v.(bool)
 	return
-
 }
 
 func (s *session) GetStringSlice(k string) (r []string) {
@@ -334,9 +332,9 @@ func Middleware(context *gin.Context) {
 	s := &session{
 		token:    newToken(),
 		values:   map[string]interface{}{},
-		options:  &options{MaxAge: defaultMaxAge},
+		options:  &options{MaxAge: int64(defaultMaxAge)},
 		modified: false,
-		created:  int(time.Now().Unix()),
+		created:  time.Now().Unix(),
 		//optionModified: false,
 		isNew: true,
 	}
@@ -359,7 +357,7 @@ func Middleware(context *gin.Context) {
 	}
 
 	if s.isNew {
-		context.SetCookie(cookieName, s.token, s.options.MaxAge, s.options.Path, s.options.Domain, s.options.Secure, s.options.HttpOnly)
+		context.SetCookie(cookieName, s.token, int(s.options.MaxAge), s.options.Path, s.options.Domain, s.options.Secure, s.options.HttpOnly)
 	}
 
 	context.Set(contextSessionKey, s)
@@ -378,7 +376,6 @@ func Middleware(context *gin.Context) {
 	if err := sessionSave(s); err != nil {
 		context.AbortWithStatus(500)
 	}
-
 }
 
 func sessionSave(s *session) error {
@@ -391,13 +388,13 @@ func sessionSave(s *session) error {
 	sd := StoreData{
 		Token:      s.token,
 		Data:       string(d),
-		UpdateTime: int(time.Now().Unix()),
+		UpdateTime: time.Now().Unix(),
 		CreateTime: s.created,
 		ExpireAt:   s.created + s.options.MaxAge,
 	}
 
-	if user, ok := s.values["user"]; ok {
-		sd.User = fmt.Sprintf("%s", user)
+	if userID, ok := s.values["userID"]; ok {
+		sd.UserID = userID.(int)
 	}
 
 	if err := store.Save(sd); err != nil {
@@ -416,7 +413,7 @@ func Update(s *session) error {
 
 }
 
-func BatchUpdateByUser(user string, not string, val map[string]interface{}) error {
+func BatchUpdateByUser(userID int, not string, val map[string]interface{}) error {
 
 	if err := requireChecker(); err != nil {
 		fmt.Println(err)
@@ -427,15 +424,15 @@ func BatchUpdateByUser(user string, not string, val map[string]interface{}) erro
 	if err != nil {
 		return err
 	}
-	return store.BatchUpdateByUser(user, not, string(data))
+	return store.BatchUpdateByUser(userID, not, string(data))
 }
 
-func UserSessions(user string) ([]*session, error) {
+func UserSessions(userID int) ([]*session, error) {
 	if err := requireChecker(); err != nil {
 		return nil, err
 	}
 
-	sds, err := store.Users(user)
+	sds, err := store.Users(userID)
 	if err != nil {
 		return nil, err
 	}

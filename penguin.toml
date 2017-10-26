@@ -1,5 +1,5 @@
 [server]
-addr = ":8080"
+addr = ":8081"
 mode = "debug"
 pprof = "true"
 origin = ["127.0.0.1"]
@@ -13,4 +13,4 @@ source = "root:123456@tcp(127.0.0.1:3306)/album"
 source = "root:123456@tcp(127.0.0.1:3306)/album"
 
 [captcha]
-path = "./file/captcha/font/comic.ttf"
+path = "./components/captcha/font/comic.ttf"
