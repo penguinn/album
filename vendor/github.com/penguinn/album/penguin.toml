@@ -1,0 +1,16 @@
+[server]
+addr = ":8080"
+mode = "debug"
+pprof = "true"
+origin = ["127.0.0.1"]
+
+[mysql.default]
+driver = "mysql"
+source = "root:123456@tcp(127.0.0.1:3306)/album"
+[mysql.default.slave.0]
+source = "root:123456@tcp(127.0.0.1:3306)/album"
+[mysql.default.slave.1]
+source = "root:123456@tcp(127.0.0.1:3306)/album"
+
+[captcha]
+path = "./file/captcha/font/comic.ttf"
