@@ -38,13 +38,13 @@ type PostUserSignInRequest struct {
 	AuthCode string `form:"authCode" binding:"required"`
 }
 
-type PostUserSignInResponse struct {
-	UserID int `json:"userID"`
-}
-
 type PostUserLoginRequest struct {
 	Username string `form:"username" binding:"required"`
 	Password string `form:"password" binding:"required"`
+}
+
+type PostUserLoginResponse struct {
+	UserID int `json:"userID"`
 }
 
 type PostChangePasswordRequest struct {
@@ -92,16 +92,13 @@ func PostUserSignIn(c *gin.Context) {
 		return
 	}
 
-	userID, err := models.User{}.Insert(postUserSignInRequest.Username, utils.HashPassword(postUserSignInRequest.Password))
+	_, err = models.User{}.Insert(postUserSignInRequest.Username, utils.HashPassword(postUserSignInRequest.Password))
 	if err != nil {
 		log.Error(err)
 		c.JSON(http.StatusOK, NewResponse(false, SERVER_ERROR_CODE))
 		return
 	}
-	postUserSignInResponse := PostUserSignInResponse{
-		UserID: userID,
-	}
-	c.JSON(http.StatusOK, NewResponse(postUserSignInResponse, SUCCESS_CODE))
+	c.JSON(http.StatusOK, NewResponse(true))
 }
 
 func PostUserLogin(c *gin.Context) {
@@ -139,7 +136,12 @@ func PostUserLogin(c *gin.Context) {
 		c.JSON(http.StatusOK, NewResponse(false, AUTH_FAILED_CODE, err.Error()))
 		return
 	}
-	c.JSON(http.StatusOK, NewResponse(true))
+
+	postUserLoginResponse := PostUserLoginResponse{
+		UserID: userInst.ID,
+	}
+
+	c.JSON(http.StatusOK, NewResponse(postUserLoginResponse, SUCCESS_CODE))
 }
 
 func PostUserLogout(c *gin.Context) {

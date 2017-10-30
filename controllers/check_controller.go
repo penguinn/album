@@ -32,7 +32,7 @@ type ImageAuthRequest struct {
 }
 
 type PostUsernameRequest struct {
-	Username  string  `form:"type" binding:"required"`
+	Username  string  `form:"username" binding:"required"`
 }
 
 func PostImageAuth(c *gin.Context) {
