@@ -3,25 +3,46 @@ package aliyun_oss
 import (
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/penguinn/penguin/component/config"
+	"log"
+	"bytes"
+	"strings"
+	"os"
 )
 
-func init() {
+var bucket *oss.Bucket
 
+func init() {
+	client, err := oss.New(config.GetString("aliyun.endpoint"), config.GetString("aliyun.accessKeyID"), config.GetString("aliyun.accessKeySecret"))
+	if err != nil {
+		log.Fatal(err)
+	}
+    bucket, err = client.Bucket(config.GetString("aliyun.bucket"))
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 
 func GetSignURL(name string) (string, error) {
-	client, err := oss.New(config.GetString("aliyun.endpoint"), config.GetString("aliyun.accessKeyID"), config.GetString("aliyun.accessKeySecret"))
-    if err != nil {
-        return "", err
-    }
-    bucket, err := client.Bucket(config.GetString("bucket"))
-    if err != nil {
-        return "", err
-    }
 
     signedURL, err := bucket.SignURL(name, oss.HTTPPut, 60)
     if err != nil {
         return "", err
     }
     return signedURL, nil
+}
+
+func BytesUpload(name string, content []byte) error {
+	err := bucket.PutObject(name, bytes.NewReader(content))
+	return err
+}
+
+func StringUpload(name, content string) error {
+	err := bucket.PutObject(name, strings.NewReader(content))
+	return err
+}
+
+func FileUpload(name, file string) error {
+	defer os.Remove(file)
+	err := bucket.PutObjectFromFile(name, file)
+	return err
 }
