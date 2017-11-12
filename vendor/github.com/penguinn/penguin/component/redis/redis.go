@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"errors"
 	"github.com/go-redis/redis"
 	"log"
 )
@@ -10,22 +11,22 @@ var (
 )
 
 type ReidsConfig struct {
-	Address        	string
-	Password 		string
+	Address  string
+	Password string
 }
 
-type RedisComponent struct {}
+type RedisComponent struct{}
 
 func (RedisComponent) Init(ops ...interface{}) (err error) {
 	if len(ops) == 0 {
-		errStr := "param error"
+		errStr := "初始化redis错误"
 		log.Println("[redis error]:", errStr)
-		return nil
+		return errors.New(errStr)
 	}
 	cfg := ops[0].(*ReidsConfig)
 	client := redis.NewClient(&redis.Options{
-		Addr:cfg.Address,
-		Password:cfg.Password,
+		Addr:     cfg.Address,
+		Password: cfg.Password,
 	})
 	redisTemp = client
 	return nil

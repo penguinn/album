@@ -2,11 +2,10 @@ package db
 
 import (
 	"errors"
-	"math/rand"
-	"time"
-
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"math/rand"
+	"time"
 )
 
 var (
@@ -30,7 +29,7 @@ type DBComponent struct{}
 func (DBComponent) Init(options ...interface{}) (err error) {
 
 	if len(options) == 0 {
-		return
+		return errors.New("初始化数据库错误")
 	}
 
 	c, ok := options[0].(*DBConfig)

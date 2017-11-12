@@ -341,10 +341,10 @@ func Middleware(context *gin.Context) {
 
 	cookie, err := context.Request.Cookie(cookieName)
 	if err == nil {
-		s.token = cookie.Value
-		d, ok := store.Get(s.token)
 
+		d, ok := store.Get(cookie.Value)
 		if ok {
+			s.token = cookie.Value
 			s.created = d.CreateTime
 			s.setOptions(MaxAgeOption(d.ExpireAt - d.CreateTime))
 			s.isNew = false
