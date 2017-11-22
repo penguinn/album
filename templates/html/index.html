@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="album" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>album</title>
+    <link rel="shortcut icon" href="../resources/rabbit.png" />
+    <link rel="stylesheet" href="../css/index.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入jquery -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <!-- 先引入 Vue -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- MD5 -->
+    <script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="title">
+                {{ message }}
+        </div>
+
+        <div style="margin-top: 10px">
+        <el-row :gutter="20">
+            <el-col :span="1.1" :offset="10">
+                <el-button @click="switchLogin()"  style="width: 100px">登录</el-button>
+            </el-col>
+            <el-col :span="1">
+                <el-button @click="switchRegister()"  style="width: 100px">注册</el-button>
+            </el-col>
+        </el-row>
+        </div>
+
+        <div class="login" id = "registerForm" style="display: none">
+        <el-row :gutter="20">
+            <el-col :span="4" :offset="9">
+                <el-form ref="form" :model="registerInfo" label-width="80px">
+                    <el-form-item>
+                        <el-input v-model="registerInfo.loginName" placeholder="请输入用户名"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+         </el-row>
+
+
+         <el-row :gutter="20">
+            <el-col :span="4" :offset="9">
+                <el-form ref="form" :model="registerInfo" label-width="80px">
+                    <el-form-item>
+                        <el-input type="password" v-model="registerInfo.password"  placeholder="请输入密码"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+
+            <el-row :gutter="20">
+                    <el-col :span="4" :offset="9">
+                        <el-form ref="form" :model="registerInfo" label-width="80px">
+                                <el-form-item>
+                                    <img src='' class="image" id="authImage">
+                                </el-form-item>
+                        </el-form>
+                    </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="4" :offset="9">
+                    <el-form ref="form" :model="registerInfo" label-width="80px">
+                        <el-form-item>
+                            <el-input type="password" v-model="registerInfo.confirm"  placeholder="请输入验证码"></el-input>
+                        </el-form-item>
+                    </el-form>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="20">
+                <el-col :span="4" :offset="10">
+                    <el-button type="success" @click="register()"  style="width: 221px">注册</el-button>
+                </el-col>
+            </el-row>
+        </div>
+
+
+        <div class="login" id = "loginForm">
+            <el-row :gutter="20">
+                <el-col :span="4" :offset="9">
+                    <el-form ref="form" :model="loginInfo" label-width="80px">
+                        <el-form-item>
+                            <el-input v-model="loginInfo.loginName" placeholder="请输入用户名"></el-input>
+                        </el-form-item>
+                    </el-form>
+                </el-col>
+            </el-row>
+
+
+            <el-row :gutter="20">
+                <el-col :span="4" :offset="9">
+                    <el-form ref="form" :model="loginInfo" label-width="80px">
+                        <el-form-item>
+                            <el-input type="password" v-model="loginInfo.password"  placeholder="请输入密码"></el-input>
+                        </el-form-item>
+                    </el-form>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="20">
+                <el-col :span="4" :offset="10">
+                    <el-button type="primary" @click="login()" style = "width: 221px">登录</el-button>
+                </el-col>
+            </el-row>
+        </div>
+
+    </div>
+
+</body>
+<script type="text/javascript" src="../js/index.js"></script>
+</html>

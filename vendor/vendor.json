@@ -289,74 +289,74 @@
 		{
 			"checksumSHA1": "agRD6C2+r2orj9e4JcvtJvmjmHs=",
 			"path": "github.com/penguinn/penguin/component/config",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "bWDfm5rFz8cmhKrlPYWZaRhaP6c=",
 			"path": "github.com/penguinn/penguin/component/controller",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "vw56n1NkNQsFZmjSMOK23cXoDx4=",
 			"path": "github.com/penguinn/penguin/component/db",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "OWLjZWf+P6jhcBg7sxTKnMqOZWA=",
 			"path": "github.com/penguinn/penguin/component/log",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "n8GHBdgF4A0oH1W7rYK1qCHillw=",
 			"path": "github.com/penguinn/penguin/component/middleware",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "zV+WWzCWlMlNHOktnqCh5W498Os=",
 			"path": "github.com/penguinn/penguin/component/mongo",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "/Hm0ybfLHmwiww6vxGkXScQTA0U=",
 			"path": "github.com/penguinn/penguin/component/redis",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
-			"checksumSHA1": "0Uu4oVR8xdNxZ4L6XL7ptu5PMWc=",
+			"checksumSHA1": "7DKfXm3Yz6vD4B812b2WKE/HBcg=",
 			"path": "github.com/penguinn/penguin/component/router",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "4MkutATGK2WXzxAyRCv2OiGJ+R4=",
 			"path": "github.com/penguinn/penguin/component/server",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "BSfXQmts9Mnr1gOr3oBV4Yi5aIM=",
 			"path": "github.com/penguinn/penguin/component/session",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "zzRVdEq3hBwxB9dD4ZkNjqizcXE=",
 			"path": "github.com/penguinn/penguin/constants",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "sbVYjBW06zyP/N9HbQvpaJIp+ZE=",
 			"path": "github.com/penguinn/penguin/utils",
-			"revision": "94ff3d464e362f308768acf1034e9498c0eb37d0",
-			"revisionTime": "2017-11-12T15:25:24Z"
+			"revision": "6ad83582ba3582ee4ca030e01179c1e58809eb51",
+			"revisionTime": "2017-11-22T03:40:22Z"
 		},
 		{
 			"checksumSHA1": "lBehULzb2/kIK3wZ0gz2yNmHq9s=",

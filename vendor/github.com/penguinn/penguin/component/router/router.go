@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"github.com/penguinn/penguin/component/controller"
 	"github.com/penguinn/penguin/utils"
+	"net/http"
 )
 
 const (
@@ -179,4 +180,17 @@ func RoutePerm(f gin.HandlerFunc) string {
 
 func BindRequest(c *gin.Context, obj interface{}) error {
 	return c.ShouldBindWith(obj, binding.Default(c.Request.Method, c.ContentType()))
+}
+
+//映射几个gin的方法出来
+func StaticFile(relativePath, filepath string) gin.IRoutes {
+	return GlobalRouter.StaticFile(relativePath, filepath)
+}
+
+func Static(relativePath, root string) gin.IRoutes {
+	return GlobalRouter.Static(relativePath, root)
+}
+
+func StaticFS(relativePath string, fs http.FileSystem) gin.IRoutes {
+	return GlobalRouter.StaticFS(relativePath, fs)
 }
