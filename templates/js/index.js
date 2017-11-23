@@ -62,8 +62,7 @@ var app = new Vue({
                 success: function (res) {
                     vm.authCodeImg = res;
                     if(vm.authCodeImg) {
-                        document.getElementById('authImage').src.dataType = 'image/png';
-                        document.getElementById('authImage').src.data = vm.authCodeImg;
+                        document.getElementById('authImage').src = 'data:image/png;base64,' + vm.authCodeImg;
                     }else {
                         document.getElementById('image').style.display = "none";
                     }
@@ -89,14 +88,14 @@ var app = new Vue({
             let logPasswordMd5 = md5(logPassword);
             $.ajax({
                 type: 'POST',
-                url: domain + '/user/login',
+                url: domain + '/api/user/login',
                 dataType: "json",
                 data: {
-                    loginName: logName,
+                    username: logName,
                     password: logPasswordMd5,
                 },
                 success: function (res) {
-                    if(res.succ == true){
+                    if(res.errcode == 0){
                         vm.successNotify("登录成功","欢迎你: " + logName);
                     }else{
                         vm.errorNotify("登录失败",res.msg);
@@ -137,7 +136,7 @@ var app = new Vue({
                     authCode: regConfirm,
                 },
                 success: function (res) {
-                    if(res.succ == true){
+                    if(res.errcode == 0){
                         vm.successNotify("注册成功","欢迎你: " + regName);
                     }else{
                         vm.errorNotify("注册失败",res.msg);

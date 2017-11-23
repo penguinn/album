@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/penguinn/penguin/component/db"
 )
 
@@ -44,6 +45,9 @@ func (p User) ValidateUsername(username string) (bool, error) {
 		return false, err
 	}
 	err = conn.Table(p.TableName()).Where("username = ?", username).First(&user).Error
+	if err == gorm.ErrRecordNotFound {
+		return false, nil
+	}
 	if err != nil {
 		return false, err
 	}
