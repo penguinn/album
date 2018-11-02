@@ -6,7 +6,7 @@ import (
 )
 
 type BaseController struct {
-	GetBase   func(*gin.Context) `path:""`
+	GetBase func(*gin.Context) `path:""`
 }
 
 func (BaseController) Name() string {
@@ -15,7 +15,7 @@ func (BaseController) Name() string {
 
 func NewBaseController() BaseController {
 	return BaseController{
-		GetBase:GetBase,
+		GetBase: GetBase,
 	}
 }
 

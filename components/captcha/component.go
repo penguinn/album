@@ -1,9 +1,9 @@
 package captcha
 
 import (
-	"image/color"
 	"github.com/afocus/captcha"
 	"github.com/penguinn/penguin/component/config"
+	"image/color"
 )
 
 var (

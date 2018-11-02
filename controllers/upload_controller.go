@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/penguinn/album/components/aliyun-oss"
 	"github.com/penguinn/penguin/component/log"
 	"net/http"
-	"github.com/penguinn/album/components/aliyun-oss"
 )
 
 type UploadController struct {
@@ -24,11 +24,11 @@ func NewUploadController() UploadController {
 }
 
 type PostGetSignURLRequest struct {
-	ObjectName  string   `form:"objectName"`
+	ObjectName string `form:"objectName"`
 }
 
 type PostGetSignURLResponse struct {
-	SignURL    string  `json:"signURL"`
+	SignURL string `json:"signURL"`
 }
 
 func PostGetSignURL(c *gin.Context) {
@@ -46,7 +46,7 @@ func PostGetSignURL(c *gin.Context) {
 		return
 	}
 	postGetSignURLResponse := PostGetSignURLResponse{
-		SignURL:signURL,
+		SignURL: signURL,
 	}
 	c.JSON(http.StatusOK, NewResponse(postGetSignURLResponse))
 }

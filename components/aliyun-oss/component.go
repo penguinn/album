@@ -1,12 +1,12 @@
 package aliyun_oss
 
 import (
+	"bytes"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/penguinn/penguin/component/config"
 	"log"
-	"bytes"
-	"strings"
 	"os"
+	"strings"
 )
 
 var bucket *oss.Bucket
@@ -16,19 +16,19 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-    bucket, err = client.Bucket(config.GetString("aliyun.bucket"))
-    if err != nil {
-        log.Fatal(err)
-    }
+	bucket, err = client.Bucket(config.GetString("aliyun.bucket"))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func GetSignURL(name string) (string, error) {
 
-    signedURL, err := bucket.SignURL(name, oss.HTTPPut, 60)
-    if err != nil {
-        return "", err
-    }
-    return signedURL, nil
+	signedURL, err := bucket.SignURL(name, oss.HTTPPut, 60)
+	if err != nil {
+		return "", err
+	}
+	return signedURL, nil
 }
 
 func BytesUpload(name string, content []byte) error {
