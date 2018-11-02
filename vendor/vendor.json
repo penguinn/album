@@ -9,6 +9,12 @@
 			"revisionTime": "2017-04-21T13:47:44Z"
 		},
 		{
+			"checksumSHA1": "muXuv924EpzyLdF9rVZNSX2j5Nk=",
+			"path": "github.com/aliyun/aliyun-oss-go-sdk/oss",
+			"revision": "6fe16293d6b7af4f5c2450714c5b4825c8ad040c",
+			"revisionTime": "2017-09-25T03:23:15Z"
+		},
+		{
 			"checksumSHA1": "1bK29RcAjCAMCYS2HS3O18w4m8k=",
 			"origin": "github.com/penguinn/penguin/vendor/github.com/cihub/seelog",
 			"path": "github.com/cihub/seelog",
