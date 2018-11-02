@@ -443,10 +443,10 @@
 			"revisionTime": "2017-09-30T09:09:42Z"
 		},
 		{
-			"checksumSHA1": "DAuHvaK3c2Ai8vdJSlIJRavntbM=",
+			"checksumSHA1": "BW0KOqvgOUoyFwEQKWTdoEJrR6c=",
 			"path": "golang.org/x/sys/unix",
-			"revision": "9ccfe848b9db8435a24c424abbc07a921adf1df5",
-			"revisionTime": "2017-04-27T03:54:25Z"
+			"revision": "9b800f95dbbc54abff0acf7ee32d88ba4e328c89",
+			"revisionTime": "2018-10-31T12:20:39Z"
 		},
 		{
 			"checksumSHA1": "ziMb9+ANGRJSSIuxYdRbA+cDRBQ=",
